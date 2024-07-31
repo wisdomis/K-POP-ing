@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>검색 결과</title>
+    <br>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f9f9f9;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        h1 {
+            color: #333;
+            text-align: center;
+        }
+        .slider {
+            position: relative;
+            width: 80%; /* 전체 너비의 80%로 설정 */
+            max-width: 800px; /* 최대 너비 설정 */
+            margin: 0 auto; /* 가로 가운데 정렬 */
+            overflow: hidden;
+            background-color: #ffe6e6; /* 연한 핑크색 */
+            border-radius: 10px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        .slides {
+            display: flex;
+            transition: transform 0.5s ease-in-out;
+        }
+        .slide {
+            min-width: 100%;
+            box-sizing: border-box;
+            padding: 20px;
+            border: 1px solid #ffcccc;
+        }
+        h2 {
+            margin-top: 0;
+            color: #000; /* 검은색 */
+        }
+        p {
+            margin: 5px 0;
+            color: #555;
+        }
+        a {
+            color: #d9534f;
+            text-decoration: none;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+        .navigation {
+            text-align: center;
+            margin-top: 10px;
+        }
+        .navigation button {
+            background-color: #d9534f;
+            color: white;
+            border: none;
+            padding: 10px;
+            cursor: pointer;
+            margin: 0 5px;
+            border-radius: 5px;
+        }
+        .navigation button:hover {
+            background-color: #c9302c;
+        }
+        .read-more-button,
+        .qa-button {
+            background-color: #d9534f;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            cursor: pointer;
+            border-radius: 5px;
+            text-align: center;
+            display: inline-block;
+            margin-top: 10px;
+            margin-right: 5px;
+        }
+        .read-more-button:hover,
+        .qa-button:hover {
+            background-color: #c9302c;
+            text-align: center;
+        }
+
+    </style>
+</head>
+<body>
+    <h1><br>"{{ keyword }}" 키워드의 최근 14일 간 기사입니다.<br></h1>
+    <br> <div class="slider">
+        <div class="slides">
+            {% for article in articles %}
+            <div class="slide">
+                <h2>기사 제목: {{ article.title }}</h2>
+                <p><strong>신문사:</strong> {{ article.paper }}</p>
+                <p><strong>정치 성향:</strong> {{ article.stance }}</p>
+                <p><strong>시간:</strong> {{ article.time }}</p><br>
+                <p><strong>요약:</strong></p>
+                <p>
+                    {% for sentence in article.summary.split('. ') %}
+                    {{ "•" + sentence }}.<br><br>
+                    {% endfor %}
+                </p>
+                <div class="navigation">
+                <a href="{{ article.link }}" target="_blank" class="read-more-button">기사 원문 보러가기</a>
+                <a href="/qa.html" target="_blank" class="qa-button">예상 질문 및 답변 확인하기</a>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+    <div class="navigation">
+        
+        <button onclick="previousSlide()">이전</button>
+        <button onclick="nextSlide()">다음</button>
+    </div>
+
+    <script>
+        let currentSlide = 0;
+
+        function showSlide(index) {
+            const slides = document.querySelector('.slides');
+            const totalSlides = document.querySelectorAll('.slide').length;
+
+            if (index >= totalSlides) {
+                currentSlide = 0;
+            } else if (index < 0) {
+                currentSlide = totalSlides - 1;
+            } else {
+                currentSlide = index;
+            }
+
+            const offset = -currentSlide * 100;
+            slides.style.transform = `translateX(${offset}%)`;
+        }
+
+        function nextSlide() {
+            showSlide(currentSlide + 1);
+        }
+
+        function previousSlide() {
+            showSlide(currentSlide - 1);
+        }
+
+        // 초기 슬라이드 표시
+        showSlide(currentSlide);
+    </script>
+</body>
+</html>
+
+
+
+
+
