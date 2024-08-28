@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>로그인</title>
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            font-family: Arial, sans-serif;
+        }
+        .form-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+        }
+        form {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+        }
+        input[type="text"], input[type="password"] {
+            width: 50%;
+            padding: 10px;
+            margin-top: 20px;
+            font-size: 16px;
+            text-align: center; /* Center-align the text inside the input fields */
+        }
+        button[type="submit"] {
+            width: auto; /* Automatically set the width of the button */
+            padding: 10px 20px;
+            margin-top: 40px; /* Increase the top margin to move the button down */
+        }
+    </style>
+</head>
+<body>
+    <div class="form-container">
+        <h2>로그인</h2>
+        <form action="/login" method="post">
+            <input type="text" name="username" placeholder="ID를 입력해주세요." required>
+            <input type="password" name="password" placeholder="PASSWORD를 입력해주세요." required>
+            <button type="submit">로그인</button>
+        </form>
+    </div>
+</body>
+</html>

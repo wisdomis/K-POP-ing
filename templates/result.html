@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>{{ keyword }} 검색 결과</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        h1 {
+            color: #333;
+        }
+        .article {
+            margin-bottom: 20px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid #ddd;
+        }
+        .title {
+            font-weight: bold;
+            font-size: 18px;
+            color: #333;
+        }
+        .time {
+            font-size: 14px;
+            color: #777;
+        }
+        .summary {
+            margin: 10px 0;
+            font-size: 16px;
+            color: #555;
+        }
+        .link {
+            color: #1e90ff;
+            text-decoration: none;
+        }
+        .link:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <h1>{{ keyword }} 검색 결과</h1>
+    {% if articles %}
+        {% for article in articles %}
+            <div class="article">
+                <div class="title">{{ article.title }}</div>
+                <div class="time">{{ article.time }}</div>
+                <div class="summary">{{ article.summary }}</div>
+                <a class="link" href="{{ article.link }}" target="_blank">기사 보기</a>
+            </div>
+        {% endfor %}
+    {% else %}
+        <p>검색 결과가 없습니다.</p>
+    {% endif %}
+</body>
+</html>
